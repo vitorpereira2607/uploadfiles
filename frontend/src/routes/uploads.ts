@@ -51,8 +51,6 @@ export async function uploadsRoutes(app: FastifyInstance) {
         },
       });
 
-      console.log(file.key)
-
       const signedUrl = await getSignedUrl(
         r2,
         new GetObjectCommand({
@@ -61,8 +59,6 @@ export async function uploadsRoutes(app: FastifyInstance) {
         }),
         { expiresIn: 600 }
       );
-
-      console.log(file.name)
 
       return { signedUrl };
     } catch (error) {
