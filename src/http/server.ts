@@ -1,7 +1,16 @@
 import fastify from "fastify";
 import { uploadsRoutes } from "../routes/uploads";
+import cors from "@fastify/cors";
 
-const app = fastify();
+const app = fastify({
+  logger: true,
+});
+
+app.register(cors, {
+    origin: '*',  
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],  
+    allowedHeaders: '*'
+});
 
 app.register(uploadsRoutes);
 

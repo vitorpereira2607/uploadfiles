@@ -2,10 +2,11 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { randomUUID } from "crypto";
 import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { prisma } from "../../prisma/index";
 import { env } from "../env";
+import {prisma} from '../../prisma/index'
 import { r2 } from "../lib/couldflare";
 import { uploadBodySchema, getFileParamsSchema } from "../schemas";
+
 
 export async function uploadsRoutes(app: FastifyInstance) {
   app.post("/uploads", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -33,6 +34,7 @@ export async function uploadsRoutes(app: FastifyInstance) {
       });
 
       return { file: file.id, signedUrl };
+
     } catch (error) {
       console.error(`Error uploading file: ${(error as Error).message}`);
       reply.code(500).send({ error: "File upload failed" });
@@ -49,6 +51,8 @@ export async function uploadsRoutes(app: FastifyInstance) {
         },
       });
 
+      console.log(file.key)
+
       const signedUrl = await getSignedUrl(
         r2,
         new GetObjectCommand({
@@ -57,6 +61,8 @@ export async function uploadsRoutes(app: FastifyInstance) {
         }),
         { expiresIn: 600 }
       );
+
+      console.log(file.name)
 
       return { signedUrl };
     } catch (error) {
