@@ -14,6 +14,7 @@ app.register(cors, {
 
 app.register(uploadsRoutes);
 
+
 app.listen({ port: 3333, host: "0.0.0.0" }, (err) => {
     if (err) {
       console.error(err);

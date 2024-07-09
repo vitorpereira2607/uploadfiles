@@ -3,6 +3,8 @@
 import axios from "axios";
 import { FormEvent, useState } from "react";
 
+const public_api = process.env.PUBLIC_API_URL || "API"
+
 
 export default function Home() {
 
@@ -17,7 +19,7 @@ export default function Home() {
     const file = files[0]
 
     try{
-      const { data } = await axios.post("http://localhost:3333/uploads", {
+      const { data } = await axios.post(`${public_api}/uploads`, {
         name: file.name,
         contentType: file.type
       })
