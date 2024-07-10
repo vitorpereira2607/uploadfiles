@@ -7,7 +7,8 @@ interface UploadResponse {
   signedUrl: string;
 }
 
-const public_api = process.env.PUBLIC_API_URL;
+
+const public_api = process.env.PUBLIC_API_URL || '';
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
