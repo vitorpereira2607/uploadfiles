@@ -7,8 +7,7 @@ interface UploadResponse {
   signedUrl: string;
 }
 
-
-const public_api = process.env.PUBLIC_API_URL || '';
+const public_api = process.env.NEXT_PUBLIC_API_URL || '';
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -16,7 +15,7 @@ export default function Home() {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadSucces, setUploadSucess] = useState<string | null>(null);
 
-
+  console.log(public_api)
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       setFile(event.target.files[0]);
